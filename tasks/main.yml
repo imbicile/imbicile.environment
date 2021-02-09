@@ -1,0 +1,75 @@
+---
+# tasks file for imbicile.environment
+- name: install tools
+  apt:
+    pkg:
+      - mc
+      - htop
+      - nmap
+      - ncdu
+      - whois
+    update_cache: yes
+    state: latest
+  become: true
+
+# copy mc config
+- name: create conf user dir
+  file:
+    path: "{{ ansible_env.HOME }}/.config/mc/"
+    state: directory
+    mode: 0755
+
+- name: config mc
+  copy:
+    src: mc/ini
+    dest: "{{ ansible_env.HOME }}/.config/mc/ini"
+    mode: 0644
+  become: false
+
+- name: create conf root dir
+  file:
+    path: "/root/.config/mc/"
+    state: directory
+    mode: 0755
+  become: true
+
+- name: config mc root
+  copy:
+    src: mc/ini
+    dest: "/root/.config/mc/ini"
+    mode: 0644
+  become: true
+
+# copy tmux config
+- name: config tmux
+  copy:
+    src: tmux/tmux.conf
+    dest: "{{ ansible_env.HOME }}/.tmux.conf"
+    mode: 0644
+  become: false
+
+- name: config tmux root
+  copy:
+    src: tmux/tmux.conf
+    dest: "/root/.tmux.conf"
+    mode: 0644
+  become: true
+
+# copy bash config
+- name: copy bash
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}"
+    mode: 0644
+  with_fileglob:
+    - bash/.*
+  become: false
+
+- name: copy bash root
+  copy:
+    src: "{{ item }}"
+    dest: "/root/"
+    mode: 0644
+  with_fileglob:
+    - bash/.*
+  become: true
