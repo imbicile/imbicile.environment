@@ -8,6 +8,7 @@
       - nmap
       - ncdu
       - whois
+      - tmux
     update_cache: yes
     state: latest
   become: true
