@@ -9,6 +9,7 @@
       - ncdu
       - whois
       - tmux
+      - git
     update_cache: yes
     state: latest
   become: true
@@ -44,14 +45,14 @@
 # copy tmux config
 - name: config tmux
   copy:
-    src: tmux/tmux.conf
+    src: tmux/.tmux.conf
     dest: "{{ ansible_env.HOME }}/.tmux.conf"
     mode: 0644
   become: false
 
 - name: config tmux root
   copy:
-    src: tmux/tmux.conf
+    src: tmux/.tmux.conf
     dest: "/root/.tmux.conf"
     mode: 0644
   become: true
@@ -73,4 +74,30 @@
     mode: 0644
   with_fileglob:
     - bash/.*
+  become: true
+
+# copy skel config
+- name: make skel conf dir
+  file:
+    path: "/etc/skel/.config/mc"
+    state: directory
+    mode: 0755
+  become: true
+
+- name: make skel conf dir
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/skel/"
+    mode: 0644
+  with_items:
+    - tmux/.tmux.conf
+    - bash/.bashrc
+    - bash/.dircolors
+  become: true
+
+- name: config mc skel
+  copy:
+    src: mc/ini
+    dest: "/etc/skel/.config/mc/ini"
+    mode: 0644
   become: true
