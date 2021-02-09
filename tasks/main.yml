@@ -14,66 +14,56 @@
     state: latest
   become: true
 
-# copy mc config
-- name: create conf user dir
+# copy user config
+- name: make skel conf dir
   file:
-    path: "{{ ansible_env.HOME }}/.config/mc/"
+    path: "{{ ansible_env.HOME }}/.config/mc"
     state: directory
     mode: 0755
+  become: false
 
-- name: config mc
+- name: make skel conf dir
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}"
+    mode: 0644
+  with_items:
+    - tmux/.tmux.conf
+    - bash/.bashrc
+    - bash/.dircolors
+  become: false
+
+- name: config mc skel
   copy:
     src: mc/ini
     dest: "{{ ansible_env.HOME }}/.config/mc/ini"
     mode: 0644
   become: false
 
-- name: create conf root dir
+# copy root config
+- name: make skel conf dir
   file:
-    path: "/root/.config/mc/"
+    path: "/root/.config/mc"
     state: directory
     mode: 0755
   become: true
 
-- name: config mc root
-  copy:
-    src: mc/ini
-    dest: "/root/.config/mc/ini"
-    mode: 0644
-  become: true
-
-# copy tmux config
-- name: config tmux
-  copy:
-    src: tmux/.tmux.conf
-    dest: "{{ ansible_env.HOME }}/.tmux.conf"
-    mode: 0644
-  become: false
-
-- name: config tmux root
-  copy:
-    src: tmux/.tmux.conf
-    dest: "/root/.tmux.conf"
-    mode: 0644
-  become: true
-
-# copy bash config
-- name: copy bash
-  copy:
-    src: "{{ item }}"
-    dest: "{{ ansible_env.HOME }}"
-    mode: 0644
-  with_fileglob:
-    - bash/.*
-  become: false
-
-- name: copy bash root
+- name: make skel conf dir
   copy:
     src: "{{ item }}"
     dest: "/root/"
     mode: 0644
-  with_fileglob:
-    - bash/.*
+  with_items:
+    - tmux/.tmux.conf
+    - bash/.bashrc
+    - bash/.dircolors
+  become: true
+
+- name: config mc skel
+  copy:
+    src: mc/ini
+    dest: "/root/.config/mc/ini"
+    mode: 0644
   become: true
 
 # copy skel config
