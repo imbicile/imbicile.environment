@@ -20,6 +20,8 @@
     path: "{{ ansible_env.HOME }}/.config/mc"
     state: directory
     mode: 0755
+  become: yes
+  become_user: "{{ ansible_user_id }}"
 
 - name: make skel conf dir
   copy:
