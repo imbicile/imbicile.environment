@@ -10,7 +10,7 @@ Example Playbook
     - hosts: 
       - all
       roles:
-        - imbicile.environment
+        - { role: imbicile.environment ,become: false }
 
 Author Information
 ------------------
