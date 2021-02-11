@@ -20,7 +20,6 @@
     path: "{{ ansible_env.HOME }}/.config/mc"
     state: directory
     mode: 0755
-  become: false
 
 - name: make skel conf dir
   copy:
@@ -31,14 +30,12 @@
     - tmux/.tmux.conf
     - bash/.bashrc
     - bash/.dircolors
-  become: false
 
 - name: config mc skel
   copy:
     src: mc/ini
     dest: "{{ ansible_env.HOME }}/.config/mc/ini"
     mode: 0644
-  become: false
 
 # copy root config
 - name: make skel conf dir
