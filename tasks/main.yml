@@ -10,6 +10,7 @@
       - whois
       - tmux
       - git
+      - curl
     update_cache: yes
     state: latest
   become: true
