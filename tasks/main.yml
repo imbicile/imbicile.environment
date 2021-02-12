@@ -18,31 +18,25 @@
 # copy user config
 - name: make skel conf dir
   file:
-    path: "{{ ansible_env.HOME }}/.config/mc"
+    path: "{{ ansible_user_dir }}/.config/mc"
     state: directory
     mode: 0755
-  become: yes
-  become_user: "{{ ansible_user_id }}"
 
 - name: copy user conf
   copy:
     src: "{{ item }}"
-    dest: "{{ ansible_env.HOME }}"
+    dest: "{{ ansible_user_dir }}/"
     mode: 0644
   with_items:
     - tmux/.tmux.conf
     - bash/.bashrc
     - bash/.dircolors
-  become: yes
-  become_user: "{{ ansible_user_id }}"
 
 - name: copy config user mc conf
   copy:
     src: mc/ini
-    dest: "{{ ansible_env.HOME }}/.config/mc/ini"
+    dest: "{{ ansible_user_dir }}/.config/mc/ini"
     mode: 0644
-  become: yes
-  become_user: "{{ ansible_user_id }}"
 
 # copy root config
 - name: make skel conf dir
