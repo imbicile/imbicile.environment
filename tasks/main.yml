@@ -11,32 +11,9 @@
       - tmux
       - git
       - curl
+      - pydf
     update_cache: yes
     state: latest
-  become: true
-
-# copy user config
-- name: make skel conf dir
-  file:
-    path: "{{ ansible_user_dir }}/.config/mc"
-    state: directory
-    mode: 0755
-
-- name: copy user conf
-  copy:
-    src: "{{ item }}"
-    dest: "{{ ansible_user_dir }}/"
-    mode: 0644
-  with_items:
-    - tmux/.tmux.conf
-    - bash/.bashrc
-    - bash/.dircolors
-
-- name: copy config user mc conf
-  copy:
-    src: mc/ini
-    dest: "{{ ansible_user_dir }}/.config/mc/ini"
-    mode: 0644
 
 # copy root config
 - name: make skel conf dir
@@ -44,7 +21,6 @@
     path: "/root/.config/mc"
     state: directory
     mode: 0755
-  become: true
 
 - name: copy conf root
   copy:
@@ -55,14 +31,12 @@
     - tmux/.tmux.conf
     - bash/.bashrc
     - bash/.dircolors
-  become: true
 
 - name: config root mc conf
   copy:
     src: mc/ini
     dest: "/root/.config/mc/ini"
     mode: 0644
-  become: true
 
 # copy skel config
 - name: make skel conf dir
@@ -70,7 +44,6 @@
     path: "/etc/skel/.config/mc"
     state: directory
     mode: 0755
-  become: true
 
 - name: copy skel conf
   copy:
@@ -81,11 +54,9 @@
     - tmux/.tmux.conf
     - bash/.bashrc
     - bash/.dircolors
-  become: true
 
 - name: config mc skel
   copy:
     src: mc/ini
     dest: "/etc/skel/.config/mc/ini"
     mode: 0644
-  become: true
