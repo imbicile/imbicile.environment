@@ -12,6 +12,10 @@
       - git
       - curl
       - pydf
+      - nload
+      - iotop
+      - bash-completion
+      - net-tools
     update_cache: yes
     state: latest
 
