@@ -1,8 +1,6 @@
 # Role Name
 
-<a href="./assets/logo">
-  <img src="./img/work.png" width="20%" />
-</a>
+<img src="./img/work.png" width="20%" />
 <br><br>
 
 imbicile.environment
