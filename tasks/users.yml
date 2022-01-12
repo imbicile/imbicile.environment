@@ -1,0 +1,41 @@
+# base config
+- name: copy conf "{{ item }}"
+  copy:
+    src: "tmux/.tmux.conf"
+    dest: "/home/{{ item }}/"
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0644
+
+- name: copy conf "{{ item }}"
+  copy:
+    src: "bash/.bashrc"
+    dest: "/home/{{ item }}/"
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0644
+
+- name: copy conf "{{ item }}"
+  copy:
+    src: "bash/.dircolors"
+    dest: "/home/{{ item }}/"
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0644
+
+# mc config
+- name: make skel conf dir "{{ item }}"
+  file:
+    path: "/home/{{ item }}/.config/mc"
+    state: directory
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0755
+
+- name: config root mc conf "{{ item }}"
+  copy:
+    src: mc/ini
+    dest: "/home/{{ item }}/.config/mc/ini"
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0644
