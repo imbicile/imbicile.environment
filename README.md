@@ -1,7 +1,9 @@
 # Role Name
 
-<img src="./img/work.png" width="20%" />
+<div align="center">
+<img src="./img/work.png" />
 <br><br>
+</div>
 
 imbicile.environment
 
