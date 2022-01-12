@@ -101,15 +101,15 @@ fi
 
 # Вывод версии ветки в папке git
 parse_git_branch() {
-  git branch 2>/dev/null | grep "\*" | awk '{print "["$2"]"}'
+  git branch 2>/dev/null | grep "\*" | awk '{print " 🛠  "$2" "}'
 }
 show_git="${On_Purple}\$(parse_git_branch)${Color_Off}"
 
 # Задаем приглашение для пользователя и опеределение рута
-if [ $(id -un) = root ]; then
-  PS1="┌ [${BIRed}\u${Color_Off}][${BIYellow}\H${Color_Off}][${BICyan}\w${Color_Off}]${show_git}\n└─ \$ "
+if [ "$(id -un)" = root ]; then
+  PS1="┌ ${On_Red} 🔓 \u ${Color_Off}${On_Yellow} 💻 \H ${Color_Off}${On_Cyan} 📂 \w ${Color_Off}${show_git}\n└─ > "
 else
-  PS1="┌ [${BIGreen}\u${Color_Off}][${BIYellow}\H${Color_Off}][${BICyan}\w${Color_Off}]${show_git}\n└─ \$ "
+  PS1="┌ ${On_Green} 🏠 \u ${Color_Off}${On_Yellow} 💻 \H ${Color_Off}${On_Cyan} 📂 \w ${Color_Off}${show_git}\n└─ > "
 fi
 
 # Предотвращает случайное удаление файлов.

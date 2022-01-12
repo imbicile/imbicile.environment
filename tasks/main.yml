@@ -19,48 +19,70 @@
     update_cache: yes
     state: latest
 
-# copy root config
-- name: make skel conf dir
-  file:
-    path: "/root/.config/mc"
-    state: directory
-    mode: 0755
+# copy users config
+- name: list users homedirs
+  shell: "ls -d /home/*/ | cut -f3 -d'/'"
+  register: homedirs
+  changed_when: False
 
+- name: copy conf users
+  include_tasks: users.yml
+  loop: "{{ homedirs.stdout_lines }}"
+
+# copy root config
 - name: copy conf root
   copy:
     src: "{{ item }}"
     dest: "/root/"
+    owner: root
+    group: root
     mode: 0644
   with_items:
     - tmux/.tmux.conf
     - bash/.bashrc
     - bash/.dircolors
+
+- name: make skel conf dir
+  file:
+    path: "/root/.config/mc"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
 
 - name: config root mc conf
   copy:
     src: mc/ini
     dest: "/root/.config/mc/ini"
+    owner: root
+    group: root
     mode: 0644
 
 # copy skel config
-- name: make skel conf dir
-  file:
-    path: "/etc/skel/.config/mc"
-    state: directory
-    mode: 0755
-
 - name: copy skel conf
   copy:
     src: "{{ item }}"
     dest: "/etc/skel/"
+    owner: root
+    group: root
     mode: 0644
   with_items:
     - tmux/.tmux.conf
     - bash/.bashrc
     - bash/.dircolors
 
+- name: make skel conf dir
+  file:
+    path: "/etc/skel/.config/mc"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
 - name: config mc skel
   copy:
     src: mc/ini
     dest: "/etc/skel/.config/mc/ini"
+    owner: root
+    group: root
     mode: 0644
