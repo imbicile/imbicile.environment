@@ -1,7 +1,7 @@
 # Role Name
 
 <div align="center">
-<img src="./img/work.png" />
+<img src="./img/work.png" width="90%" />
 <br><br>
 </div>
 
