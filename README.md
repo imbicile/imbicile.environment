@@ -83,9 +83,9 @@ retries = 2
 
 ```bash
 if [ "$(id -un)" = root ]; then
-  PS1="┌ [${IRed}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n└─ > "
+  PS1="[${IRed}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n# "
 else
-  PS1="┌ [${IGreen}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n└─ > "
+  PS1="[${IGreen}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n# "
 fi
 ```
 
