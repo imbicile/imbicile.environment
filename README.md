@@ -43,8 +43,7 @@ roles_path = roles
 interpreter_python=/usr/bin/python3
 ansible_python_interpreter=/usr/bin/python3
 force_valid_group_names = ignore
-callback_plugins = plugins/callback
-callback_whitelist = profile_tasks
+callback_whitelist = ansible.posix.profile_tasks
 
 gathering = smart
 fact_caching = jsonfile
@@ -62,6 +61,35 @@ control_path = %(directory)s/%%C
 retries = 2
 ```
 
+## FILES
+
+```
+.
+├── ansible.cfg
+├── cache
+│   └── facts
+├── localpool
+├── playbooks
+│   ├── env.yml
+└── roles
+    └── imbicile.environment
+```
+
+## ! ПЕРДУПРЕЖДЕНИЕ !
+
+При физической работе в консоли символны не отображаются а git может быть не установлен
+
+### Рекомендованная конфигурация
+
+````bash
+if [ "$(id -un)" = root ]; then
+  PS1="┌ [${IRed}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n└─ > "
+else
+  PS1="┌ [${IGreen}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n└─ > "
+fi
+```bash
+
 ## Author Information
 
 https://imbicile.pp.ru
+````
