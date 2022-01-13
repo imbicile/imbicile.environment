@@ -19,70 +19,24 @@
     update_cache: yes
     state: latest
 
-# copy users config
+# get users config
 - name: list users homedirs
   shell: "ls -d /home/*/ | cut -f3 -d'/'"
   register: homedirs
   changed_when: False
 
+# copy users config
 - name: copy conf users
   include_tasks: users.yml
   loop: "{{ homedirs.stdout_lines }}"
+  loop_control:
+    loop_var: userlist
 
-# copy root config
-- name: copy conf root
-  copy:
-    src: "{{ item }}"
-    dest: "/root/"
-    owner: root
-    group: root
-    mode: 0644
-  with_items:
-    - tmux/.tmux.conf
-    - bash/.bashrc
-    - bash/.dircolors
-
-- name: make skel conf dir
-  file:
-    path: "/root/.config/mc"
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
-
-- name: config root mc conf
-  copy:
-    src: mc/ini
-    dest: "/root/.config/mc/ini"
-    owner: root
-    group: root
-    mode: 0644
-
-# copy skel config
-- name: copy skel conf
-  copy:
-    src: "{{ item }}"
-    dest: "/etc/skel/"
-    owner: root
-    group: root
-    mode: 0644
-  with_items:
-    - tmux/.tmux.conf
-    - bash/.bashrc
-    - bash/.dircolors
-
-- name: make skel conf dir
-  file:
-    path: "/etc/skel/.config/mc"
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
-
-- name: config mc skel
-  copy:
-    src: mc/ini
-    dest: "/etc/skel/.config/mc/ini"
-    owner: root
-    group: root
-    mode: 0644
+# copy root and env config
+- name: copy root and env config
+  include_tasks: rootenv.yml
+  loop:
+    - "/root/"
+    - "/etc/skel/"
+  loop_control:
+    loop_var: rootenv
