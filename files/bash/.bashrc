@@ -99,11 +99,17 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Вывод версии ветки в папке git
+parse_git_branch() {
+  git branch 2>/dev/null | grep "\*" | awk '{print " 🛠 "$2" "}'
+}
+show_git="${On_Purple}\$(parse_git_branch)${Color_Off}"
+
 # Задаем приглашение для пользователя и опеределение рута
 if [ "$(id -un)" = root ]; then
-  PS1="[${IRed}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n# "
+  PS1="┌ ${On_Red} 🔓 \u ${Color_Off}${On_Yellow} 💻 \H ${Color_Off}${On_Cyan} 📂 \w ${Color_Off}${show_git}\n└─ > "
 else
-  PS1="[${IGreen}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n# "
+  PS1="┌ ${On_Green} 🏠 \u ${Color_Off}${On_Yellow} 💻 \H ${Color_Off}${On_Cyan} 📂 \w ${Color_Off}${show_git}\n└─ > "
 fi
 
 # Предотвращает случайное удаление файлов.
