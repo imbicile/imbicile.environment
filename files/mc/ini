@@ -1,2 +1,3 @@
 [Midnight-Commander]
-skin=gotar
+shadows=true
+skin=julia256
