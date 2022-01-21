@@ -103,7 +103,7 @@ fi
 
 # Вывод версии ветки в папке git
 parse_git_branch() {
-  git branch 2>/dev/null | grep "\*" | awk '{print " 🛠 "$2" "}'
+  git branch 2>/dev/null | grep "\*" | awk '{print " 🛠  "$2" "}'
 }
 show_git="${On_Purple}\$(parse_git_branch)${Color_Off}"
 
