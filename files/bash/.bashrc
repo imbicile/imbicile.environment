@@ -101,6 +101,16 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Пути до исполняемых файлов профиля ~/.bin
+if [ -d "$HOME/bin" ]; then
+  PATH="$HOME/bin:$PATH"
+fi
+
+# Пути до исполняемых файлов профиля ~/.local/bin
+if [ -d "$HOME/.local/bin" ]; then
+  PATH="$HOME/.local/bin:$PATH"
+fi
+
 # Вывод версии ветки в папке git
 parse_git_branch() {
   git branch 2>/dev/null | grep "\*" | awk '{print " 🛠  "$2" "}'
