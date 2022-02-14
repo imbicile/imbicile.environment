@@ -111,6 +111,7 @@ if [ -d "$HOME/.local/bin" ]; then
   PATH="$HOME/.local/bin:$PATH"
 fi
 
+# Конфигурация для локльного ПК с git
 # Вывод версии ветки в папке git
 parse_git_branch() {
   git branch 2>/dev/null | grep "\*" | awk '{print " 🛠  "$2" "}'
@@ -123,6 +124,13 @@ if [ "$(id -un)" = root ]; then
 else
   PS1="┌ ${On_Green} 🏠 \u ${Color_Off}${On_Yellow} 💻 \H ${Color_Off}${On_Cyan} 📂 \w ${Color_Off}${show_git}\n└─ > "
 fi
+
+# Конфигурация для серверов. Без git. Необходимо расскоментировать цвета выше.
+# if [ "$(id -un)" = root ]; then
+#   PS1="[${IRed}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n# "
+# else
+#   PS1="[${IGreen}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n# "
+# fi
 
 # Предотвращает случайное удаление файлов.
 alias mkdir='mkdir -p'
