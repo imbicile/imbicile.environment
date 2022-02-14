@@ -16,6 +16,7 @@
       - iotop
       - bash-completion
       - net-tools
+      - jq
     update_cache: yes
     state: latest
 
