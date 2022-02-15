@@ -9,6 +9,7 @@
   with_items:
     - tmux/.tmux.conf
     - bash/.bashrc
+    - bash/.profile
     - bash/.dircolors
 
 # mc config
