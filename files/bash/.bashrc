@@ -46,6 +46,16 @@ On_Purple='\e[45m' # Purple
 On_Cyan='\e[46m'   # Cyan
 #On_White='\e[47m'  # White
 #
+## Фоновые черный шрифт
+#On_Black='\e[30;40m'  # Black
+#On_Red='\e[30;41m'    # Red
+#On_Green='\e[30;42m'  # Green
+#On_Yellow='\e[30;43m' # Yellow
+#On_Blue='\e[30;44m'   # Blue
+#On_Purple='\e[30;45m' # Purple
+#On_Cyan='\e[30;46m'   # Cyan
+#On_White='\e[30;47m'  # White
+#
 ## Высоко Интенсивные
 #IBlack='\e[0;90m'  # Black
 #IRed='\e[0;91m'    # Red
