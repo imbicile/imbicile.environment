@@ -2,3 +2,5 @@
 shadows=true
 skin=gotar
 
+[Panels]
+navigate_with_arrows=true

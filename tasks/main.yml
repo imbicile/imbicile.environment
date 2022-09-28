@@ -17,14 +17,20 @@
       - bash-completion
       - net-tools
       - jq
-    update_cache: yes
+      - python3-pygments
+      - traceroute
+      - iptables
+      - grc
+      - tcpdump
+      - acl
+    update_cache: true
     state: latest
 
 # get users config
 - name: list users homedirs
   shell: "ls -d /home/*/ | cut -f3 -d'/'"
   register: homedirs
-  changed_when: False
+  changed_when: false
 
 # copy users config
 - name: copy conf users
