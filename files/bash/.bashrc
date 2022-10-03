@@ -37,24 +37,24 @@ UCyan='\e[4;36m'   # Cyan
 UWhite='\e[4;37m'  # White
 
 ## Фоновые белый шрифт
-On_Black='\e[40m'  # Black
-On_Red='\e[41m'    # Red
-On_Green='\e[42m'  # Green
-On_Yellow='\e[43m' # Yellow
-On_Blue='\e[44m'   # Blue
-On_Purple='\e[45m' # Purple
-On_Cyan='\e[46m'   # Cyan
-On_White='\e[47m'  # White
+On_WBlack='\e[40m'  # Black
+On_WRed='\e[41m'    # Red
+On_WGreen='\e[42m'  # Green
+On_WYellow='\e[43m' # Yellow
+On_WBlue='\e[44m'   # Blue
+On_WPurple='\e[45m' # Purple
+On_WCyan='\e[46m'   # Cyan
+On_WWhite='\e[47m'  # White
 
 ## Фоновые черный шрифт
-On_Black='\e[30;40m'  # Black
-On_Red='\e[30;41m'    # Red
-On_Green='\e[30;42m'  # Green
-On_Yellow='\e[30;43m' # Yellow
-On_Blue='\e[30;44m'   # Blue
-On_Purple='\e[30;45m' # Purple
-On_Cyan='\e[30;46m'   # Cyan
-On_White='\e[30;47m'  # White
+On_BBlack='\e[30;40m'  # Black
+On_BRed='\e[30;41m'    # Red
+On_BGreen='\e[30;42m'  # Green
+On_BYellow='\e[30;43m' # Yellow
+On_BBlue='\e[30;44m'   # Blue
+On_BPurple='\e[30;45m' # Purple
+On_BCyan='\e[30;46m'   # Cyan
+On_BWhite='\e[30;47m'  # White
 
 ## Высоко Интенсивные
 IBlack='\e[0;90m'  # Black
@@ -132,13 +132,13 @@ fi
 parse_git_branch() {
   git branch 2>/dev/null | grep "\*" | awk '{print " 🛠  "$2" "}'
 }
-show_git="${On_Purple}\$(parse_git_branch)${Color_Off}"
+show_git="${On_BPurple}\$(parse_git_branch)${Color_Off}"
 
 # Задаем приглашение для пользователя и опеределение рута
 if [ "$(id -un)" = root ]; then
-  PS1="┌ ${On_Red} 🔓 \u ${Color_Off}${On_Yellow} 💻 \H ${Color_Off}${On_Cyan} 📂 \w ${Color_Off}${show_git}\n└─ > "
+  PS1="┌ ${On_BRed} 🔓 \u ${Color_Off}${On_BYellow} 💻 \H ${Color_Off}${On_BCyan} 📂 \w ${Color_Off}${show_git}\n└─ > "
 else
-  PS1="┌ ${On_Green} 🏠 \u ${Color_Off}${On_Yellow} 💻 \H ${Color_Off}${On_Cyan} 📂 \w ${Color_Off}${show_git}\n└─ > "
+  PS1="┌ ${On_BGreen} 🏠 \u ${Color_Off}${On_BYellow} 💻 \H ${Color_Off}${On_BCyan} 📂 \w ${Color_Off}${show_git}\n└─ > "
 fi
 
 # Конфигурация для серверов.
