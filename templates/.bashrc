@@ -222,7 +222,7 @@ alias lm='ls -al |more' # вывод через 'more'
 # Цветной cat
 # Посмотреть все стили
 # pygmentize -L styles --json | jq
-alias ccat='pygmentize -g -O full,style=dracula'
+alias ccat='pygmentize -g -O full,style=monokai'
 
 # Цветные команды
 alias ping="grc --colour=auto ping"
