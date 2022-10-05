@@ -1,5 +1,5 @@
 # base config
-- name: copy conf "{{ rootenv }}"
+- name: Copy conf "{{ rootenv }}"
   copy:
     src: "{{ item }}"
     dest: "{{ rootenv }}"
@@ -8,12 +8,19 @@
     mode: 0644
   with_items:
     - tmux/.tmux.conf
-    - bash/.bashrc
     - bash/.profile
     - bash/.dircolors
 
+- name: Copy bashrc "{{ rootenv }}"
+  template:
+    src: ".bashrc"
+    dest: "{{ rootenv }}"
+    owner: root
+    group: root
+    mode: 0644
+
 # mc config
-- name: make mc conf dir "{{ rootenv }}"
+- name: Make mc conf dir "{{ rootenv }}"
   file:
     path: "{{ rootenv }}.config/mc"
     state: directory
@@ -21,7 +28,7 @@
     group: root
     mode: 0755
 
-- name: config mc conf "{{ rootenv }}"
+- name: Config mc conf "{{ rootenv }}"
   copy:
     src: mc/ini
     dest: "{{ rootenv }}.config/mc/ini"

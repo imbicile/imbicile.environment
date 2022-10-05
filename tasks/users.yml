@@ -1,5 +1,5 @@
 # base config
-- name: copy conf "{{ userlist }}"
+- name: Copy conf "{{ userlist }}"
   copy:
     src: "{{ item }}"
     dest: "/home/{{ userlist }}/"
@@ -8,12 +8,19 @@
     mode: 0644
   with_items:
     - tmux/.tmux.conf
-    - bash/.bashrc
     - bash/.profile
     - bash/.dircolors
 
+- name: Copy bashrc "{{ userlist }}"
+  template:
+    src: ".bashrc"
+    dest: "/home/{{ userlist }}/"
+    owner: "{{ userlist }}"
+    group: "{{ userlist }}"
+    mode: 0644
+
 # mc config
-- name: make skel conf dir "{{ userlist }}"
+- name: Make skel conf dir "{{ userlist }}"
   file:
     path: "/home/{{ userlist }}/.config/mc"
     state: directory
@@ -21,7 +28,7 @@
     group: "{{ userlist }}"
     mode: 0755
 
-- name: config root mc conf "{{ userlist }}"
+- name: Config root mc conf "{{ userlist }}"
   copy:
     src: mc/ini
     dest: "/home/{{ userlist }}/.config/mc/ini"

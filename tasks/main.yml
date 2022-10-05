@@ -1,6 +1,8 @@
 ---
 # tasks file for imbicile.environment
-- name: install tools
+
+# tools
+- name: Install tools
   apt:
     pkg:
       - mc
@@ -27,20 +29,20 @@
     state: latest
 
 # get users config
-- name: list users homedirs
+- name: List users homedirs
   shell: "ls -d /home/*/ | cut -f3 -d'/'"
   register: homedirs
   changed_when: false
 
 # copy users config
-- name: copy conf users
+- name: Copy conf users
   include_tasks: users.yml
   loop: "{{ homedirs.stdout_lines }}"
   loop_control:
     loop_var: userlist
 
 # copy root and env config
-- name: copy root and env config
+- name: Copy root and env config
   include_tasks: rootenv.yml
   loop:
     - "/root/"

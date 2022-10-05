@@ -127,8 +127,8 @@ if [ -f "$HOME/.bashrc_aliases" ]; then
   . "$HOME/.bashrc_aliases"
 fi
 
+{% if env_ps1_style == "modern" %}
 # Конфигурация для локльного ПК с git
-# Вывод версии ветки в папке git
 parse_git_branch() {
   git branch 2>/dev/null | grep "\*" | awk '{print " 🛠  "$2" "}'
 }
@@ -140,14 +140,42 @@ if [ "$(id -un)" = root ]; then
 else
   PS1="┌ ${On_BGreen} 🏠 \u ${Color_Off}${On_BYellow} 💻 \H ${Color_Off}${On_BCyan} 📂 \w ${Color_Off}${show_git}\n└─ > "
 fi
+{% endif %}
+{% if env_ps1_style == "simple" %}
+# Конфигурация без значков
+parse_git_branch() {
+  git branch 2>/dev/null | grep "\*" | awk '{print "~>["$2"]"}'
+}
+show_git="${IPurple}\$(parse_git_branch)${Color_Off}"
 
+if [ "$(id -un)" = root ]; then
+  PS1="┌─╼[${IRed}\u${Color_Off}]╾╼[${IYellow}\H${Color_Off}]╾╼[${ICyan}\w${Color_Off}]${show_git}\n└───╼ "
+else
+  PS1="┌─╼[${IGreen}\u${Color_Off}]╾╼[${IYellow}\H${Color_Off}]╾╼[${ICyan}\w${Color_Off}]${show_git}\n└───╼ "
+fi
+{% endif %}
+{% if env_ps1_style == "shell" %}
+# Конфигурация imbicile/shell_colors 
+parse_git_branch() {
+  git branch 2>/dev/null | grep "\*" | awk '{print "["$2"]"}'
+}
+show_git="${On_Purple}\$(parse_git_branch)${Color_Off}"
+
+# Задаем приглашение для пользователя и опеределение рута
+if [ "$(id -un)" = root ]; then
+  PS1="┌ [${IRed}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]$show_git\n└─ > "
+else
+  PS1="┌ [${IGreen}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]$show_git\n└─ > "
+fi
+{% endif %}
+{% if env_ps1_style == "server" %}
 # Конфигурация для серверов.
-# Без git. Без спецсимволов
-# if [ "$(id -un)" = root ]; then
-#   PS1="[${IRed}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n# "
-# else
-#   PS1="[${IGreen}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n# "
-# fi
+if [ "$(id -un)" = root ]; then
+  PS1="[${IRed}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n# "
+else
+  PS1="[${IGreen}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n# "
+fi
+{% endif %}
 
 # Предотвращает случайное удаление файлов.
 alias mkdir='mkdir -p'
@@ -192,7 +220,9 @@ alias lt='ls -ltr'      # сортировка по дате
 alias lm='ls -al |more' # вывод через 'more'
 
 # Цветной cat
-alias ccat='pygmentize -g'
+# Посмотреть все стили
+# pygmentize -L styles --json | jq
+alias ccat='pygmentize -g -O full,style=dracula'
 
 # Цветные команды
 alias ping="grc --colour=auto ping"

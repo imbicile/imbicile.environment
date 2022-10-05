@@ -1,2 +1,11 @@
 ---
 # defaults file for imbicile.environment
+
+# Вид строки bash
+# Возможные варианты
+# modern - стиль со значками
+# simple - стиль без значков
+# server - рекомендован для серверов
+# shell - тема из imbicile/shell_colors
+
+env_ps1_style: server
