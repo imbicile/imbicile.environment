@@ -5,7 +5,7 @@
     dest: "{{ rootenv }}"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   with_items:
     - tmux/.tmux.conf
     - bash/.profile
@@ -17,7 +17,7 @@
     dest: "{{ rootenv }}"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
 
 # mc config
 - name: Make mc conf dir "{{ rootenv }}"
@@ -26,7 +26,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
 
 - name: Config mc conf "{{ rootenv }}"
   copy:
@@ -34,4 +34,4 @@
     dest: "{{ rootenv }}.config/mc/ini"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"

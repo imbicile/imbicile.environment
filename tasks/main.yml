@@ -25,6 +25,7 @@
       - grc
       - tcpdump
       - acl
+      - fping
     update_cache: true
     state: latest
 

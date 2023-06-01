@@ -130,7 +130,7 @@ fi
 {% if env_ps1_style == "modern" %}
 # Конфигурация для локльного ПК с git
 parse_git_branch() {
-  git branch 2>/dev/null | grep "\*" | awk '{print " ⎇  "$2" "}'
+  git branch 2>/dev/null | grep "\*" | awk '{print " 🛠  "$2" "}'
 }
 parse_git_status() {
   git_status=$(git status --porcelain --ignore-submodules 2>/dev/null | wc -l)
@@ -191,7 +191,7 @@ parse_git_status() {
   fi
 }
 parse_git_push() {
-  git_push=$(git status --long 2>/dev/null | grep 'git push' | wc -l)
+  git_push=$(git status --long 2>/dev/null | grep -c 'git push')
   if [[ "$git_push" != 0 ]]; then
     printf "[*]"
   fi
@@ -226,14 +226,14 @@ if [ -x /usr/bin/dircolors ]; then
   fi
 
   # Цвета auto
-  alias ls='ls --color=auto'
-  alias dmesg='dmesg --color=auto'
+  alias ls='ls --color'
+  alias dmesg='dmesg --color'
   alias gcc='gcc -fdiagnostics-color=auto'
-  alias dir='dir --color=auto'
-  alias diff='diff --color=auto'
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
+  alias dir='dir --color'
+  alias diff='diff --color'
+  alias grep='grep --color'
+  alias fgrep='fgrep --color'
+  alias egrep='egrep --color'
 fi
 
 # Раскрашиваем man
@@ -315,6 +315,7 @@ function extract {
       *.rar) unrar x -ad ./"$1" ;;
       *.gz) gunzip ./"$1" ;;
       *.tar) tar xvf ./"$1" ;;
+      *.tbz) tar xvjf ./"$1" ;;
       *.tbz2) tar xvjf ./"$1" ;;
       *.tgz) tar xvzf ./"$1" ;;
       *.zip) unzip ./"$1" ;;
