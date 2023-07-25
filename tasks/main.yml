@@ -30,7 +30,7 @@
     state: latest
 
 # get users config
-- name: List users homedirs
+- name: List users homes
   shell: "ls -d /home/*/ | cut -f3 -d'/'"
   register: homedirs
   changed_when: false

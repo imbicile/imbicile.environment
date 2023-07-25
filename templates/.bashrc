@@ -126,8 +126,33 @@ if [ -f "$HOME/.bashrc_aliases" ]; then
   # shellcheck source=/dev/null
   . "$HOME/.bashrc_aliases"
 fi
-
 {% if env_ps1_style == "modern" %}
+# Конфигурация для локльного ПК с git
+parse_git_branch() {
+  git branch 2>/dev/null | grep "\*" | awk '{print "🛠  "$2" "}'
+}
+parse_git_status() {
+  git_status=$(git status --porcelain --ignore-submodules 2>/dev/null | wc -l)
+  if [[ "$git_status" != 0 ]]; then
+    printf "(±%s)" "$git_status"
+  fi
+}
+parse_git_push() {
+  git_push=$(git status --long 2>/dev/null | grep 'git push' | wc -l)
+  if [[ "$git_push" != 0 ]]; then
+    printf " ✗ "
+  fi
+}
+show_git="${BPurple}\$(parse_git_branch)${BGreen}\$(parse_git_push)${BRed}\$(parse_git_status)${Color_Off}"
+
+# Задаем приглашение для пользователя и опеределение рута
+if [ "$(id -un)" = root ]; then
+  PS1="┌ ${On_BRed} 🔓 \u ${Color_Off}${On_BYellow} 💻 \H ${Color_Off}${On_BCyan} 📂 \w ${Color_Off}${show_git}\n└─ ➤  "
+else
+  PS1="${BGreen}┌${Color_Off} ${BGreen}🏠 \u ${Color_Off}${BYellow}💻 \H ${Color_Off}${BCyan}📂 \w ${Color_Off}${show_git}\n${BGreen}└─ ➤${Color_Off}  "
+fi
+{% endif %}
+{% if env_ps1_style == "on_modern" %}
 # Конфигурация для локльного ПК с git
 parse_git_branch() {
   git branch 2>/dev/null | grep "\*" | awk '{print " 🛠  "$2" "}'
@@ -148,9 +173,9 @@ show_git="${On_BPurple}\$(parse_git_branch)${On_BGreen}\$(parse_git_push)${On_BR
 
 # Задаем приглашение для пользователя и опеределение рута
 if [ "$(id -un)" = root ]; then
-  PS1="┌ ${On_BRed} 🔓 \u ${Color_Off}${On_BYellow} 💻 \H ${Color_Off}${On_BCyan} 📂 \w ${Color_Off}${show_git}\n└─ > "
+  PS1="┌ ${On_BRed} 🔓 \u ${Color_Off}${On_BYellow} 💻 \H ${Color_Off}${On_BCyan} 📂 \w ${Color_Off}${show_git}\n└─ ➤  "
 else
-  PS1="┌ ${On_BGreen} 🏠 \u ${Color_Off}${On_BYellow} 💻 \H ${Color_Off}${On_BCyan} 📂 \w ${Color_Off}${show_git}\n└─ > "
+  PS1="${BGreen}┌${Color_Off} ${On_BGreen} 🏠 \u ${Color_Off}${On_BYellow} 💻 \H ${Color_Off}${On_BCyan} 📂 \w ${Color_Off}${show_git}\n${BGreen}└─ ➤${Color_Off}  "
 fi
 {% endif %}
 {% if env_ps1_style == "simple" %}
