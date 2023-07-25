@@ -140,14 +140,14 @@ parse_git_status() {
 parse_git_push() {
   git_push=$(git status --long 2>/dev/null | grep 'git push' | wc -l)
   if [[ "$git_push" != 0 ]]; then
-    printf " ✗ "
+    printf "✗ "
   fi
 }
 show_git="${BPurple}\$(parse_git_branch)${BGreen}\$(parse_git_push)${BRed}\$(parse_git_status)${Color_Off}"
 
 # Задаем приглашение для пользователя и опеределение рута
 if [ "$(id -un)" = root ]; then
-  PS1="┌ ${On_BRed} 🔓 \u ${Color_Off}${On_BYellow} 💻 \H ${Color_Off}${On_BCyan} 📂 \w ${Color_Off}${show_git}\n└─ ➤  "
+  PS1="┌ ${BRed}🔓 \u ${Color_Off}${BYellow}💻 \H ${Color_Off}${BCyan}📂 \w ${Color_Off}${show_git}\n└─ ➤  "
 else
   PS1="${BGreen}┌${Color_Off} ${BGreen}🏠 \u ${Color_Off}${BYellow}💻 \H ${Color_Off}${BCyan}📂 \w ${Color_Off}${show_git}\n${BGreen}└─ ➤${Color_Off}  "
 fi
