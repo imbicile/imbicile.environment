@@ -16,7 +16,8 @@ Add config for root and new users
 ```yml
 # Вид строки bash
 # Возможные варианты
-# modern - стиль со значками
+# modern - стиль со значками без фона
+# on_modern - стиль со значками с фоном
 # simple - стиль без значков
 # server - рекомендован для серверов
 # shell - тема из imbicile/shell_colors
