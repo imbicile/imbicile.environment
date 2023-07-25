@@ -149,7 +149,7 @@ show_git="${BPurple}\$(parse_git_branch)${BGreen}\$(parse_git_push)${BRed}\$(par
 if [ "$(id -un)" = root ]; then
   PS1="┌ ${BRed}🔓 \u ${Color_Off}${BYellow}💻 \H ${Color_Off}${BCyan}📂 \w ${Color_Off}${show_git}\n└─ ➤  "
 else
-  PS1="${BGreen}┌${Color_Off} ${BGreen}🏠 \u ${Color_Off}${BYellow}💻 \H ${Color_Off}${BCyan}📂 \w ${Color_Off}${show_git}\n${BGreen}└─ ➤${Color_Off}  "
+  PS1="┌${Color_Off} ${BGreen}🏠 \u ${Color_Off}${BYellow}💻 \H ${Color_Off}${BCyan}📂 \w ${Color_Off}${show_git}\n└─ ➤  "
 fi
 {% endif %}
 {% if env_ps1_style == "on_modern" %}
