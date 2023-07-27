@@ -127,29 +127,59 @@ if [ -f "$HOME/.bashrc_aliases" ]; then
   . "$HOME/.bashrc_aliases"
 fi
 {% if env_ps1_style == "modern" %}
-# Конфигурация для локльного ПК с git
-parse_git_branch() {
-  git branch 2>/dev/null | grep "\*" | awk '{print "🛠  "$2" "}'
-}
-parse_git_status() {
-  git_status=$(git status --porcelain --ignore-submodules 2>/dev/null | wc -l)
-  if [[ "$git_status" != 0 ]]; then
-    printf "(±%s)" "$git_status"
-  fi
-}
-parse_git_push() {
-  git_push=$(git status --long 2>/dev/null | grep 'git push' | wc -l)
-  if [[ "$git_push" != 0 ]]; then
-    printf "✗ "
-  fi
-}
-show_git="${BPurple}\$(parse_git_branch)${BGreen}\$(parse_git_push)${BRed}\$(parse_git_status)${Color_Off}"
+# Проверка на консоль
+if [[ $(tty) =~ "tty" ]]; then
+  # Конфигурация без значков
+  parse_git_branch() {
+    git branch 2>/dev/null | grep "\*" | awk '{print "» "$2" "}'
 
-# Задаем приглашение для пользователя и опеределение рута
-if [ "$(id -un)" = root ]; then
-  PS1="┌ ${BRed}🔓 \u ${Color_Off}${BYellow}💻 \H ${Color_Off}${BCyan}📂 \w ${Color_Off}${show_git}\n└─ ➤  "
+  }
+  parse_git_status() {
+    git_status=$(git status --porcelain --ignore-submodules 2>/dev/null | wc -l)
+    if [[ "$git_status" != 0 ]]; then
+      printf "(±%s)" "$git_status"
+    fi
+  }
+  parse_git_push() {
+    git_push=$(git status --long 2>/dev/null | grep -c 'git push')
+    if [[ "$git_push" != 0 ]]; then
+      printf "(×)"
+    fi
+  }
+  show_git="${IPurple}\$(parse_git_branch)${IGreen}\$(parse_git_push)${IRed}\$(parse_git_status)${Color_Off}"
+
+  # Задаем приглашение для пользователя и опеределение рута
+  if [ "$(id -un)" = root ]; then
+    PS1="┌ ${BRed}• \u ${Color_Off}${BYellow}• \H ${Color_Off}${BCyan}• \w ${Color_Off}${show_git}\n└─ > "
+  else
+    PS1="┌${Color_Off} ${BGreen}• \u ${Color_Off}${BYellow}• \H ${Color_Off}${BCyan}• \w ${Color_Off}${show_git}\n└─ > "
+  fi
+
 else
-  PS1="┌${Color_Off} ${BGreen}🏠 \u ${Color_Off}${BYellow}💻 \H ${Color_Off}${BCyan}📂 \w ${Color_Off}${show_git}\n└─ ➤  "
+  # Конфигурация со значками
+  parse_git_branch() {
+    git branch 2>/dev/null | grep "\*" | awk '{print "🛠  "$2" "}'
+  }
+  parse_git_status() {
+    git_status=$(git status --porcelain --ignore-submodules 2>/dev/null | wc -l)
+    if [[ "$git_status" != 0 ]]; then
+      printf "(±%s)" "$git_status"
+    fi
+  }
+  parse_git_push() {
+    git_push=$(git status --long 2>/dev/null | grep -c 'git push')
+    if [[ "$git_push" != 0 ]]; then
+      printf "(✗)"
+    fi
+  }
+  show_git="${BPurple}\$(parse_git_branch)${BGreen}\$(parse_git_push)${BRed}\$(parse_git_status)${Color_Off}"
+
+  # Задаем приглашение для пользователя и опеределение рута
+  if [ "$(id -un)" = root ]; then
+    PS1="┌ ${BRed}🔓 \u ${Color_Off}${BYellow}💻 \H ${Color_Off}${BCyan}📂 \w ${Color_Off}${show_git}\n└─ ➤  "
+  else
+    PS1="┌${Color_Off} ${BGreen}🏠 \u ${Color_Off}${BYellow}💻 \H ${Color_Off}${BCyan}📂 \w ${Color_Off}${show_git}\n└─ ➤  "
+  fi
 fi
 {% endif %}
 {% if env_ps1_style == "on_modern" %}
