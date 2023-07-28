@@ -111,7 +111,7 @@ pipelining = true
 
 При физической работе в консоли символны не отображаются а git может быть не установлен
 
-### Рекомендованная конфигурация **server** или **shell**
+### Рекомендованная конфигурация **server** , **shell** или **modern**
 
 ```bash
 if [ "$(id -un)" = root ]; then
@@ -120,6 +120,8 @@ else
   PS1="[${IGreen}\u${Color_Off}][${IYellow}\H${Color_Off}][${ICyan}\w${Color_Off}]\n# "
 fi
 ```
+
+В теме **modern** реализовано переключение на основе определения tty
 
 ## Author Information
 
