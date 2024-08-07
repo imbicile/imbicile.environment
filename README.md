@@ -67,7 +67,7 @@ https://docs.ansible.com/ansible/2.4/intro_configuration.html
 [defaults]
 deprecation_warnings=false
 host_key_checking = false
-inventory = staging
+inventory = inventory
 roles_path = roles
 collections_path = collections
 interpreter_python=/usr/bin/python3
