@@ -18,6 +18,7 @@
       - iotop
       - bash-completion
       - net-tools
+      - bind9-dnsutils
       - jq
       - python3-pygments
       - traceroute

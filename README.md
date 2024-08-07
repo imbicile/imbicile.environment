@@ -67,30 +67,39 @@ https://docs.ansible.com/ansible/2.4/intro_configuration.html
 [defaults]
 deprecation_warnings=false
 host_key_checking = false
-inventory = inventory
+inventory = staging
 roles_path = roles
+collections_path = collections
 interpreter_python=/usr/bin/python3
 ansible_python_interpreter=/usr/bin/python3
 force_valid_group_names = ignore
-callbacks_enabled = timer, profile_tasks, profile_roles
+callbacks_enabled=ansible.posix.profile_tasks, ansible.posix.timer
 forks=30
 gathering = smart
 fact_caching = jsonfile
 fact_caching_connection = cache/facts
 fact_caching_timeout = 3600
 internal_poll_interval = 0.001
+ansible_managed = Ansible managed: modified on %d-%m-%Y %H:%M:%S
+remote_tmp = /tmp
+ansible_remote_tmp = /tmp
+
+[callback_profile_tasks]
+sort_order = none
+task_output_limit = 500
 
 [inventory]
 cache = true
 cache_plugin = jsonfile
-cache_connection = cache/inventory
-cache_timeout = 3600
+cache_connection = cache/
+cache_timeout = 300
 
 [ssh_connection]
 control_path = %(directory)s/%%C
 retries = 2
 ssh_args = -o ControlMaster=auto -o ControlPersist=60s
 pipelining = true
+scp_if_ssh=true
 ```
 
 ## FILES

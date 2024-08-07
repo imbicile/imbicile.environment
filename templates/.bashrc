@@ -98,23 +98,8 @@ shopt -s cmdhist      # все строки многострочной кома�
 shopt -s autocd       # переход в каталог без cd
 unset MAILCHECK       # отключить инфломацию о почте
 
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# Автодополнение bash-completion
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    # shellcheck source=/dev/null
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    # shellcheck source=/dev/null
-    . /etc/bash_completion
-  fi
-fi
-
-# Пути до исполняемых файлов профиля ~/.bin
-if [ -d "$HOME/bin" ]; then
-  PATH="$HOME/bin:$PATH"
-fi
+# Пути до исполняемых файлов
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Пути до исполняемых файлов профиля ~/.local/bin
 if [ -d "$HOME/.local/bin" ]; then
@@ -126,13 +111,13 @@ if [ -f "$HOME/.bashrc_aliases" ]; then
   # shellcheck source=/dev/null
   . "$HOME/.bashrc_aliases"
 fi
+
 {% if env_ps1_style == "modern" %}
 # Проверка на консоль
 if [[ $(tty) =~ "tty" ]]; then
   # Конфигурация без значков
   parse_git_branch() {
     git branch 2>/dev/null | grep "\*" | awk '{print "» "$2" "}'
-
   }
   parse_git_status() {
     git_status=$(git status --porcelain --ignore-submodules 2>/dev/null | wc -l)
@@ -269,8 +254,18 @@ else
 fi
 {% endif %}
 
-# Предотвращает случайное удаление файлов.
-alias mkdir='mkdir -p'
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Включаем папку скриптов bash_completion / k8s / ...
+if [ -d /etc/profile.d ]; then
+  for i in /etc/profile.d/*.sh; do
+    if [ -r "$i" ]; then
+      # shellcheck source=/dev/null
+      . "$i"
+    fi
+  done
+  unset i
+fi
 
 # Подключаем dircolors
 if [ -x /usr/bin/dircolors ]; then
@@ -279,16 +274,6 @@ if [ -x /usr/bin/dircolors ]; then
   else
     eval "$(dircolors -b)"
   fi
-
-  # Цвета auto
-  alias ls='ls --color'
-  alias dmesg='dmesg --color'
-  alias gcc='gcc -fdiagnostics-color=auto'
-  alias dir='dir --color'
-  alias diff='diff --color'
-  alias grep='grep --color'
-  alias fgrep='fgrep --color'
-  alias egrep='egrep --color'
 fi
 
 # Раскрашиваем man
@@ -300,63 +285,82 @@ export LESS_TERMCAP_so=$'\e[0;36m' # начало выделения - инфо�
 export LESS_TERMCAP_ue=$'\e[0m'    # конец подчеркивания (Color_Off)
 export LESS_TERMCAP_us=$'\e[0;93m' # начало подчеркивания (IYellow)
 
+# Предотвращает случайное удаление файлов.
+alias mkdir='mkdir -p'
+
+# Цвета auto
+alias ls='ls --color'
+alias dmesg='dmesg --color'
+alias gcc='gcc -fdiagnostics-color=auto'
+alias dir='dir --color'
+alias diff='diff --color'
+alias grep='grep --color'
+alias fgrep='fgrep --color'
+alias egrep='egrep --color'
+
 # Алиасы LS
-alias ll='ls -alF'      # показать скрытые файлы с индикатором
-alias la='ls -Al'       # показать скрытые файлы
-alias lx='ls -lXB'      # сортировка по расширению
-alias lk='ls -lSr'      # сортировка по размеру
-alias lc='ls -lcr'      # сортировка по времени изменения
-alias lu='ls -lur'      # сортировка по времени последнего обращения
-alias lr='ls -lR'       # рекурсивный обход подкаталогов
-alias lt='ls -ltr'      # сортировка по дате
-alias lm='ls -al |more' # вывод через 'more'
+alias ll='ls -alF'       # показать скрытые файлы с индикатором
+alias la='ls -Al'        # показать скрытые файлы
+alias lx='ls -lXB'       # сортировка по расширению
+alias lk='ls -lSr'       # сортировка по размеру
+alias lc='ls -lcr'       # сортировка по времени изменения
+alias lu='ls -lur'       # сортировка по времени последнего обращения
+alias lr='ls -lR'        # рекурсивный обход подкаталогов
+alias lt='ls -ltr'       # сортировка по дате
+alias lm='ls -al | more' # вывод через 'more'
 
 # Цветной cat
 # Посмотреть все стили
 # pygmentize -L styles --json | jq
-alias ccat='pygmentize -g -O full,style=monokai'
+PYGMENTIZE="$(which pygmentize)"
+if [ -n "$PYGMENTIZE" ]; then
+  alias ccat='pygmentize -g -O full,style=monokai'
+fi
 
 # Цветные команды
-alias ping="grc --colour=auto ping"
-alias traceroute="grc --colour=auto traceroute"
-alias netstat="grc --colour=auto netstat"
-alias stat="grc --colour=auto stat"
-alias ss="grc --colour=auto ss"
-alias diff="grc --colour=auto diff"
-alias wdiff="grc --colour=auto wdiff"
-alias last="grc --colour=auto last"
-alias mount="grc --colour=auto mount"
-alias ps="grc --colour=auto ps"
-alias dig="grc --colour=auto dig"
-alias ifconfig="grc --colour=auto ifconfig"
-alias mount="grc --colour=auto mount"
-alias df="grc --colour=auto df"
-alias du="grc --colour=auto du"
-alias ip="grc --colour=auto ip"
-alias env="grc --colour=auto env"
-alias iptables="grc --colour=auto iptables"
-alias lspci="grc --colour=auto lspci"
-alias lsblk="grc --colour=auto lsblk"
-alias lsof="grc --colour=auto lsof"
-alias blkid="grc --colour=auto blkid"
-alias id="grc --colour=auto id"
-alias fdisk="grc --colour=auto fdisk"
-alias free="grc --colour=auto free"
-alias systemctl="grc --colour=auto systemctl"
-alias journalctl="grc --colour=auto journalctl"
-alias sysctl="grc --colour=auto sysctl"
-alias tcpdump="grc --colour=auto tcpdump"
-alias tune2fs="grc --colour=auto tune2fs"
-alias lsmod="grc --colour=auto lsmod"
-alias lsattr="grc --colour=auto lsattr"
-alias nmap="grc --colour=auto nmap"
-alias uptime="grc --colour=auto uptime"
-alias getfacl="grc --colour=auto getfacl"
-alias iwconfig="grc --colour=auto iwconfig"
-alias whois="grc --colour=auto whois"
+GRC="$(which grc)"
+if [ -n "$GRC" ]; then
+  alias ping="grc --colour=auto ping"
+  alias traceroute="grc --colour=auto traceroute"
+  alias netstat="grc --colour=auto netstat"
+  alias stat="grc --colour=auto stat"
+  alias ss="grc --colour=auto ss"
+  alias diff="grc --colour=auto diff"
+  alias wdiff="grc --colour=auto wdiff"
+  alias last="grc --colour=auto last"
+  alias mount="grc --colour=auto mount"
+  alias ps="grc --colour=auto ps"
+  alias dig="grc --colour=auto dig"
+  alias ifconfig="grc --colour=auto ifconfig"
+  alias mount="grc --colour=auto mount"
+  alias df="grc --colour=auto df"
+  alias du="grc --colour=auto du"
+  alias ip="grc --colour=auto ip"
+  alias env="grc --colour=auto env"
+  alias iptables="grc --colour=auto iptables"
+  alias lspci="grc --colour=auto lspci"
+  alias lsblk="grc --colour=auto lsblk"
+  alias lsof="grc --colour=auto lsof"
+  alias blkid="grc --colour=auto blkid"
+  alias id="grc --colour=auto id"
+  alias fdisk="grc --colour=auto fdisk"
+  alias free="grc --colour=auto free"
+  alias systemctl="grc --colour=auto systemctl"
+  alias journalctl="grc --colour=auto journalctl"
+  alias sysctl="grc --colour=auto sysctl"
+  alias tcpdump="grc --colour=auto tcpdump"
+  alias tune2fs="grc --colour=auto tune2fs"
+  alias lsmod="grc --colour=auto lsmod"
+  alias lsattr="grc --colour=auto lsattr"
+  alias nmap="grc --colour=auto nmap"
+  alias uptime="grc --colour=auto uptime"
+  alias getfacl="grc --colour=auto getfacl"
+  alias iwconfig="grc --colour=auto iwconfig"
+  alias whois="grc --colour=auto whois"
+fi
 
 # Функция распаковки extract
-function extract {
+function extract() {
   if [ -z "$1" ]; then
     echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
   else
