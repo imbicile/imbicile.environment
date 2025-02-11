@@ -13,8 +13,8 @@
 
 - name: Copy bashrc "{{ userlist }}"
   template:
-    src: ".bashrc"
-    dest: "/home/{{ userlist }}/"
+    src: "bashrc_{{ env_ps1_style }}"
+    dest: "/home/{{ userlist }}/.bashrc"
     owner: "{{ userlist }}"
     group: "{{ userlist }}"
     mode: "0644"

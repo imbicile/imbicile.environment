@@ -13,8 +13,8 @@
 
 - name: Copy bashrc "{{ rootenv }}"
   template:
-    src: ".bashrc"
-    dest: "{{ rootenv }}"
+    src: "bashrc_{{ env_ps1_style }}"
+    dest: "{{ rootenv }}/.bashrc"
     owner: root
     group: root
     mode: "0644"

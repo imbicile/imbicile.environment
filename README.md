@@ -22,7 +22,6 @@
 # on_modern - стиль со значками с фоном
 # simple - стиль без значков
 # server - рекомендован для серверов
-# shell - тема из imbicile/shell_colors
 
 env_ps1_style: server
 ```
