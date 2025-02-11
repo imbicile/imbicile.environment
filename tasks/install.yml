@@ -1,0 +1,40 @@
+# tools
+- name: Install tools
+  ansible.builtin.apt:
+    pkg:
+      - mc
+      - htop
+      - nmap
+      - ncdu
+      - whois
+      - tmux
+      - git
+      - curl
+      - pydf
+      - nload
+      - iotop
+      - bash-completion
+      - net-tools
+      - bind9-dnsutils
+      - jq
+      - python3-pygments
+      - traceroute
+      - iptables
+      - grc
+      - tcpdump
+      - acl
+      - fping
+      - earlyoom
+      - preload
+    update_cache: true
+    state: latest
+
+- name: Install fonst
+  ansible.builtin.apt:
+    pkg:
+      - fonts-powerline
+      - fonts-terminus
+      - fonts-symbola
+    update_cache: true
+    state: latest
+  notify: Update fonts

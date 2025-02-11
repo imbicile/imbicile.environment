@@ -1,17 +1,19 @@
-# Role Name
+# Роль imbicile.environment
 
 <div align="center">
 <img src="./img/work.png" width="90%" />
 <br><br>
 </div>
 
-imbicile.environment
+## Информация
 
-## Role Information
+Установка окружения для root, текущих и новых пользователей
 
-Add config for root and new users
+## Требования
 
-## Role vars
+Проверено на Ubuntu и Debian
+
+## Переменные
 
 ```yml
 # Вид строки bash
@@ -25,7 +27,7 @@ Add config for root and new users
 env_ps1_style: server
 ```
 
-## Example Playbook
+## Пример Server Playbook
 
 ```yml
 ---
@@ -42,7 +44,7 @@ env_ps1_style: server
       tags: env
 ```
 
-## Example Local Playbook
+## Пример Local Playbook
 
 ```yml
 ---
@@ -59,7 +61,7 @@ env_ps1_style: server
       tags: env
 ```
 
-## Example ansible.cfg
+## ПРимер ansible.cfg
 
 https://docs.ansible.com/ansible/2.4/intro_configuration.html
 
@@ -102,7 +104,7 @@ pipelining = true
 scp_if_ssh=true
 ```
 
-## FILES
+## Стуктура файлов
 
 ```bash
 .

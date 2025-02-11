@@ -1,2 +1,6 @@
 ---
 # handlers file for imbicile.environment
+
+- name: Update fonts
+  ansible.builtin.command: fc-cache -f
+  changed_when: false

@@ -1,0 +1,21 @@
+# get users config
+- name: List users homes
+  ansible.builtin.shell: "ls -d /home/*/ | cut -f3 -d'/'"
+  register: homedirs
+  changed_when: false
+
+# copy users config
+- name: Copy conf users
+  ansible.builtin.include_tasks: users.yml
+  loop: "{{ homedirs.stdout_lines }}"
+  loop_control:
+    loop_var: userlist
+
+# copy root and env config
+- name: Copy root and env config
+  ansible.builtin.include_tasks: rootenv.yml
+  loop:
+    - "/root/"
+    - "/etc/skel/"
+  loop_control:
+    loop_var: rootenv
