@@ -61,7 +61,7 @@ env_ps1_style: server
       tags: env
 ```
 
-## ПРимер ansible.cfg
+## Пример ansible.cfg
 
 https://docs.ansible.com/ansible/2.4/intro_configuration.html
 
