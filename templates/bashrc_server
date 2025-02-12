@@ -4,7 +4,7 @@
 color_off='\033[0m'
 
 # Тип
-font_fg='\033[38;2;'
+fg='\033[38;2;'
 
 # RGB цвета
 red='255;0;0m'
@@ -56,12 +56,12 @@ parse_git_push() {
     printf "[*]"
   fi
 }
-show_git="${font_fg}${fuchsia}\$(parse_git_branch)${font_fg}${lime}\$(parse_git_push)${font_fg}${red}\$(parse_git_status)${color_off}"
+show_git="${fg}${fuchsia}\$(parse_git_branch)${fg}${lime}\$(parse_git_push)${fg}${red}\$(parse_git_status)${color_off}"
 
 if [ "$(id -un)" = root ]; then
-  PS1="[${font_fg}${red}\u${color_off}][${font_fg}${yellow}\H${color_off}][${font_fg}${aqua}\w${color_off}]${show_git}\n# "
+  PS1="[${fg}${red}\u${color_off}][${fg}${yellow}\H${color_off}][${fg}${aqua}\w${color_off}]${show_git}\n# "
 else
-  PS1="[${font_fg}${lime}\u${color_off}][${font_fg}${yellow}\H${color_off}][${font_fg}${aqua}\w${color_off}]${show_git}\n# "
+  PS1="[${fg}${lime}\u${color_off}][${fg}${yellow}\H${color_off}][${fg}${aqua}\w${color_off}]${show_git}\n# "
 fi
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"

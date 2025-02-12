@@ -1,14 +1,11 @@
 #!/bin/bash
-# Библиотека цветов https://wiki.archlinux.org/index.php/Bash/Prompt_customization_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)
-# Функции и прочие примеры http://dotshare.it/category/shells/bash/
-# Цвета папок dircolors https://github.com/trapd00r/LS_COLORS
 
 # Сброс
 color_off='\033[0m'
 
 # Тип
-font_fg='\033[38;2;'
-font_bg='\033[48;2;'
+fg='\033[38;2;'
+bg='\033[48;2;'
 
 ## RGB цвета
 white='255;255;255m'
@@ -70,13 +67,13 @@ parse_git_push() {
     printf " ✗ "
   fi
 }
-show_git="${font_fg}${white}${font_bg}${purple}\$(parse_git_branch)${font_bg}${green}\$(parse_git_push)${font_bg}${maroon}\$(parse_git_status)${color_off}"
+show_git="${fg}${white}${bg}${purple}\$(parse_git_branch)${bg}${green}\$(parse_git_push)${bg}${maroon}\$(parse_git_status)${color_off}"
 
 # Задаем приглашение для пользователя и опеределение рута
 if [ "$(id -un)" = root ]; then
-  PS1="┌ ${font_fg}${white}${font_bg}${maroon} 🔓 \u ${font_bg}${olive} 💻 \H ${font_bg}${teal} 📂 \w ${color_off}${show_git}\n└─ ➤  "
+  PS1="┌ ${fg}${white}${bg}${maroon} 🔓 \u ${bg}${olive} 💻 \H ${bg}${teal} 📂 \w ${color_off}${show_git}\n└─ ➤  "
 else
-  PS1="┌ ${font_fg}${white}${font_bg}${green} 🏠 \u ${font_bg}${olive} 💻 \H ${font_bg}${teal} 📂 \w ${color_off}${show_git}\n└─ ➤  "
+  PS1="┌ ${fg}${white}${bg}${green} 🏠 \u ${bg}${olive} 💻 \H ${bg}${teal} 📂 \w ${color_off}${show_git}\n└─ ➤  "
 fi
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"

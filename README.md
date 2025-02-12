@@ -9,6 +9,16 @@
 
 Установка окружения для root, текущих и новых пользователей
 
+[Библиотека цветов](https://wiki.archlinux.org/title/Bash/Prompt_customization)
+
+[Функции и прочиепримеры](http://dotshare.it/category/shells/bash/)
+
+[Цвета папок dircolors](https://github.com/trapd00r/LS_COLORS)
+
+[Dracula color scheme](<https://en.wikipedia.org/wiki/Dracula_(color_scheme)>)
+
+[ANSI_escape_code](https://en.wikipedia.org/wiki/ANSI_escape_code#Colors)
+
 ## Требования
 
 Проверено на Ubuntu и Debian
@@ -22,6 +32,7 @@
 # on_modern - стиль со значками с фоном
 # simple - стиль без значков
 # server - рекомендован для серверов
+# powerline - стиль со стрелками
 
 env_ps1_style: server
 ```
