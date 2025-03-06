@@ -33,6 +33,7 @@
 # simple - стиль без значков
 # server - рекомендован для серверов
 # powerline - стиль со стрелками
+# box - стиль аналог powerline но без стрелок
 
 env_ps1_style: server
 ```
