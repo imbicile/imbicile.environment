@@ -12,20 +12,17 @@ bg='\033[48;2;'
 ## RGB цвета
 white='255;255;255m'
 silver='192;192;192m'
-gray='128;128;128m'
-black='0;0;0m'
-red='255;0;0m'
+gray='105;105;105m'
 maroon='128;0;0m'
-yellow='255;255;0m'
-olive='128;128;0m'
 lime='0;255;0m'
-green='0;128;0m'
+green='0;100;0m'
 aqua='0;255;255m'
 teal='0;128;128m'
-blue='0;0;255m'
+blue='0;135;175m'
+red='255;0;0m'
 navy='0;0;128m'
 fuchsia='255;0;255m'
-purple='128;0;128m'
+orange='255;69;0m'
 
 # Задаем параметры истории и отображения
 HISTCONTROL=ignoreboth:erasedups
@@ -69,13 +66,13 @@ parse_git_push() {
     printf " + "
   fi
 }
-show_git="${fg}${white}${bg}${purple}\$(parse_git_branch)${bg}${green}\$(parse_git_push)${bg}${red}\$(parse_git_status)${color_off}"
+show_git="${fg}${white}${bg}${green}\$(parse_git_branch)${bg}${orange}\$(parse_git_push)${bg}${navy}\$(parse_git_status)${color_off}"
 
 # Задаем приглашение для пользователя и опеределение рута
 if [ "$(id -un)" = root ]; then
-  PS1="${show_git}${fg}${white}${bg}${maroon} \u@\h ${fg}${maroon}${bg}${gray}${fg}${white}${bg}${gray} \w ${fg}${gray}${reset_bg}${color_off}\n\$ "
+  PS1="${show_git}${fg}${white}${bg}${maroon} \u@\h ${fg}${white}${bg}${gray} \w ${color_off}\n\$ "
 else
-  PS1="${show_git}${fg}${white}${bg}${navy} \u@\h ${fg}${navy}${bg}${gray}${fg}${white}${bg}${gray} \w ${fg}${gray}${reset_bg}${color_off}\n\$ "
+  PS1="${show_git}${fg}${white}${bg}${blue} \u@\h ${fg}${white}${bg}${gray} \w ${color_off}\n\$ "
 fi
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"

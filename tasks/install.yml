@@ -26,6 +26,7 @@
       - fping
       - earlyoom
       - preload
+      - ipcalc
     update_cache: true
     state: latest
 
