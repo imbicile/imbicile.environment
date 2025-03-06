@@ -71,11 +71,20 @@ parse_git_push() {
 }
 show_git="${fg}${white}${bg}${purple}\$(parse_git_branch)${bg}${green}\$(parse_git_push)${bg}${red}\$(parse_git_status)${color_off}"
 
-# Задаем приглашение для пользователя и опеределение рута
-if [ "$(id -un)" = root ]; then
-  PS1="${show_git}${fg}${white}${bg}${maroon} \u@\h ${fg}${maroon}${bg}${gray}${fg}${white}${bg}${gray} \w ${fg}${gray}${reset_bg}${color_off}\n\$ "
+if [[ $(tty) =~ "tty" ]]; then
+  # Задаем приглашение для пользователя и опеределение рута для консоли
+  if [ "$(id -un)" = root ]; then
+    PS1="${show_git}${fg}${white}${bg}${maroon} \u@\h ${fg}${white}${bg}${gray} \w ${color_off}\n\$ "
+  else
+    PS1="${show_git}${fg}${white}${bg}${navy} \u@\h ${fg}${white}${bg}${gray} \w ${color_off}\n\$ "
+  fi
 else
-  PS1="${show_git}${fg}${white}${bg}${navy} \u@\h ${fg}${navy}${bg}${gray}${fg}${white}${bg}${gray} \w ${fg}${gray}${reset_bg}${color_off}\n\$ "
+  # Задаем приглашение для пользователя и опеределение рута для графики
+  if [ "$(id -un)" = root ]; then
+    PS1="${show_git}${fg}${white}${bg}${maroon} \u@\h ${fg}${maroon}${bg}${gray}${fg}${white}${bg}${gray} \w ${fg}${gray}${reset_bg}${color_off}\n\$ "
+  else
+    PS1="${show_git}${fg}${white}${bg}${navy} \u@\h ${fg}${navy}${bg}${gray}${fg}${white}${bg}${gray} \w ${fg}${gray}${reset_bg}${color_off}\n\$ "
+  fi
 fi
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
