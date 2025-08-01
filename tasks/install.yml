@@ -36,6 +36,8 @@
       - fonts-powerline
       - fonts-terminus
       - fonts-symbola
+      - fonts-jetbrains-mono
+      - fonts-font-awesome
     update_cache: true
     state: latest
   notify: Update fonts
