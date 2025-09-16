@@ -2,6 +2,8 @@
 
 # Сброс
 color_off='\033[0m'
+reset_bg='\033[49m'
+reset_fg='\033[39m'
 
 # Тип
 fg='\033[38;2;'
@@ -24,6 +26,7 @@ blue='0;0;255m'
 navy='0;0;128m'
 fuchsia='255;0;255m'
 purple='128;0;128m'
+orange='255;69;0m'
 
 # Задаем параметры истории и отображения
 HISTCONTROL=ignoreboth:erasedups
@@ -61,13 +64,19 @@ parse_git_status() {
     printf " ±%s " "$git_status"
   fi
 }
+parse_git_pull() {
+  git_push=$(git status --long 2>/dev/null | grep -c 'git pull')
+  if [[ "$git_push" != 0 ]]; then
+    printf " ↓ "
+  fi
+}
 parse_git_push() {
   git_push=$(git status --long 2>/dev/null | grep -c 'git push')
   if [[ "$git_push" != 0 ]]; then
-    printf " ✗ "
+    printf " ↑ "
   fi
 }
-show_git="${fg}${white}${bg}${purple}\$(parse_git_branch)${bg}${green}\$(parse_git_push)${bg}${maroon}\$(parse_git_status)${color_off}"
+show_git="${fg}${white}${bg}${purple}\$(parse_git_branch)${bg}${orange}\$(parse_git_pull)${bg}${green}\$(parse_git_push)${bg}${maroon}\$(parse_git_status)${color_off}"
 
 # Задаем приглашение для пользователя и опеределение рута
 if [ "$(id -un)" = root ]; then

@@ -6,12 +6,13 @@ color_off='\033[0m'
 # Тип
 fg='\033[38;2;'
 
-# RGB цвета
+## RGB цвета
 red='255;0;0m'
 yellow='255;255;0m'
 lime='0;255;0m'
 aqua='0;255;255m'
 fuchsia='255;0;255m'
+orange='255;69;0m'
 
 # Задаем параметры истории и отображения
 HISTCONTROL=ignoreboth:erasedups
@@ -50,13 +51,19 @@ parse_git_status() {
     printf "[±%s]" "$git_status"
   fi
 }
+parse_git_pull() {
+  git_push=$(git status --long 2>/dev/null | grep -c 'git pull')
+  if [[ "$git_push" != 0 ]]; then
+    printf "[↓]"
+  fi
+}
 parse_git_push() {
   git_push=$(git status --long 2>/dev/null | grep -c 'git push')
   if [[ "$git_push" != 0 ]]; then
-    printf "[*]"
+    printf "[↑]"
   fi
 }
-show_git="${fg}${fuchsia}\$(parse_git_branch)${fg}${lime}\$(parse_git_push)${fg}${red}\$(parse_git_status)${color_off}"
+show_git="${fg}${fuchsia}\$(parse_git_branch)${fg}${orange}\$(parse_git_pull)${fg}${lime}\$(parse_git_push)${fg}${red}\$(parse_git_status)${color_off}"
 
 if [ "$(id -un)" = root ]; then
   PS1="[${fg}${red}\u${color_off}][${fg}${yellow}\H${color_off}][${fg}${aqua}\w${color_off}]${show_git}\n# "
