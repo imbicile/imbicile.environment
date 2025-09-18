@@ -26,7 +26,7 @@ blue='0;0;255m'
 navy='0;0;128m'
 fuchsia='255;0;255m'
 purple='128;0;128m'
-orange='255;69;0m'
+orange='255;165;0m'
 
 # Задаем параметры истории и отображения
 HISTCONTROL=ignoreboth:erasedups

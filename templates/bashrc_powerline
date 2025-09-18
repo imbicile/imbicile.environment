@@ -17,7 +17,7 @@ maroon='128;0;0m'
 green='0;128;0m'
 navy='0;0;128m'
 purple='128;0;128m'
-orange='255;69;0m'
+orange='255;165;0m'
 
 # Задаем параметры истории и отображения
 HISTCONTROL=ignoreboth:erasedups

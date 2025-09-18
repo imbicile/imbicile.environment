@@ -12,7 +12,7 @@ yellow='255;255;0m'
 lime='0;255;0m'
 aqua='0;255;255m'
 fuchsia='255;0;255m'
-orange='255;69;0m'
+orange='255;165;0m'
 
 # Задаем параметры истории и отображения
 HISTCONTROL=ignoreboth:erasedups
