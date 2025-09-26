@@ -9,9 +9,13 @@
 
 Установка окружения для root, текущих и новых пользователей
 
-[Библиотека цветов](https://wiki.archlinux.org/title/Bash/Prompt_customization)
+**Ссылки**
 
-[Функции и прочиепримеры](http://dotshare.it/category/shells/bash/)
+[ansible bashrc](https://imbicile.pp.ru/ansible-bashrc/)
+
+[Подсветка в bash](https://imbicile.pp.ru/podsvetka-v-bash/)
+
+[Библиотека цветов](https://wiki.archlinux.org/title/Bash/Prompt_customization)
 
 [Цвета папок dircolors](https://github.com/trapd00r/LS_COLORS)
 
