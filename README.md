@@ -38,6 +38,12 @@
 env_ps1_style: server
 ```
 
+## Запуск Local Playbook c указанной темой
+
+```bash
+ansible-pull -U https://github.com/imbicile/imbicile.environment.git -e "env_ps1_style=powerline"
+```
+
 ## Пример Server Playbook
 
 ```yml
