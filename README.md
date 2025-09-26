@@ -44,6 +44,8 @@ env_ps1_style: server
 
 ## Запуск Local Playbook c указанной темой
 
+После выполнения необходимо **закрыть и снова открыть** прилрожение терминала, чтобы **перечитать .bashrc**
+
 ```bash
 ansible-pull -U https://github.com/imbicile/imbicile.environment.git -e "env_ps1_style=powerline"
 ```
