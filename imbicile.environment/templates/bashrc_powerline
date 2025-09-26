@@ -3,7 +3,6 @@
 # Сброс
 color_off='\033[0m'
 reset_bg='\033[49m'
-reset_fg='\033[39m'
 
 # Тип
 fg='\033[38;2;'
@@ -15,7 +14,7 @@ gray='128;128;128m'
 red='255;0;0m'
 maroon='128;0;0m'
 green='0;128;0m'
-navy='0;0;128m'
+blue='0;135;175m'
 purple='128;0;128m'
 orange='255;165;0m'
 
@@ -74,14 +73,14 @@ if [[ $(tty) =~ "tty" ]]; then
   if [ "$(id -un)" = root ]; then
     PS1="${show_git}${fg}${white}${bg}${maroon} \u@\h ${fg}${white}${bg}${gray} \w ${color_off}\n\$ "
   else
-    PS1="${show_git}${fg}${white}${bg}${navy} \u@\h ${fg}${white}${bg}${gray} \w ${color_off}\n\$ "
+    PS1="${show_git}${fg}${white}${bg}${blue} \u@\h ${fg}${white}${bg}${gray} \w ${color_off}\n\$ "
   fi
 else
   # Задаем приглашение для пользователя и опеределение рута для графики
   if [ "$(id -un)" = root ]; then
     PS1="${show_git}${fg}${white}${bg}${maroon} \u@\h ${fg}${maroon}${bg}${gray}${fg}${white}${bg}${gray} \w ${fg}${gray}${reset_bg}${color_off}\n\$ "
   else
-    PS1="${show_git}${fg}${white}${bg}${navy} \u@\h ${fg}${navy}${bg}${gray}${fg}${white}${bg}${gray} \w ${fg}${gray}${reset_bg}${color_off}\n\$ "
+    PS1="${show_git}${fg}${white}${bg}${blue} \u@\h ${fg}${blue}${bg}${gray}${fg}${white}${bg}${gray} \w ${fg}${gray}${reset_bg}${color_off}\n\$ "
   fi
 fi
 
