@@ -66,9 +66,9 @@ parse_git_push() {
 show_git="${fg}${fuchsia}\$(parse_git_branch)${fg}${orange}\$(parse_git_pull)${fg}${lime}\$(parse_git_push)${fg}${red}\$(parse_git_status)${color_off}"
 
 if [ "$(id -un)" = root ]; then
-  PS1="[${fg}${red}\u${color_off}][${fg}${yellow}\H${color_off}][${fg}${aqua}\w${color_off}]${show_git}\n# "
+  PS1="[${fg}${red}\u${color_off}][${fg}${yellow}\h${color_off}][${fg}${aqua}\w${color_off}]${show_git}\n# "
 else
-  PS1="[${fg}${lime}\u${color_off}][${fg}${yellow}\H${color_off}][${fg}${aqua}\w${color_off}]${show_git}\n# "
+  PS1="[${fg}${lime}\u${color_off}][${fg}${yellow}\h${color_off}][${fg}${aqua}\w${color_off}]${show_git}\n# "
 fi
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -104,6 +104,8 @@ export LESS_TERMCAP_us=$'\033[0;93m' # начало подчеркивания (
 
 # Предотвращает случайное удаление файлов.
 alias mkdir='mkdir -p'
+alias grep='grep --color'
+alias dmesg='dmesg --color'
 
 # Алиасы LS
 alias ll='ls -alF'       # показать скрытые файлы с индикатором

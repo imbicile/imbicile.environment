@@ -82,9 +82,9 @@ if [[ $(tty) =~ "tty" ]]; then
 
   # Задаем приглашение для пользователя и опеределение рута
   if [ "$(id -un)" = root ]; then
-    PS1="┌${fg}${red} • \u${fg}${yellow} » \H${fg}${aqua} • \w${color_off}${show_git}\n└─ > "
+    PS1="┌${fg}${red} • \u${fg}${yellow} » \h${fg}${aqua} • \w${color_off}${show_git}\n└─ > "
   else
-    PS1="┌${fg}${lime} • \u${fg}${yellow} » \H${fg}${aqua} • \w${color_off}${show_git}\n└─ > "
+    PS1="┌${fg}${lime} • \u${fg}${yellow} » \h${fg}${aqua} • \w${color_off}${show_git}\n└─ > "
   fi
 
 else
@@ -115,9 +115,9 @@ show_git="${fg}${fuchsia}\$(parse_git_branch)${fg}${orange}\$(parse_git_pull)${f
 
   # Задаем приглашение для пользователя и опеределение рута
   if [ "$(id -un)" = root ]; then
-    PS1="┌${fg}${red} 🔓 \u${fg}${yellow} 💻 \H${fg}${aqua} 📂 \w${color_off}${show_git}\n└─ > "
+    PS1="┌${fg}${red} 🔓 \u${fg}${yellow} 💻 \h${fg}${aqua} 📂 \w${color_off}${show_git}\n└─ > "
   else
-    PS1="┌${fg}${lime} 🏠 \u${fg}${yellow} 💻 \H${fg}${aqua} 📂 \w${color_off}${show_git}\n└─ > "
+    PS1="┌${fg}${lime} 🏠 \u${fg}${yellow} 💻 \h${fg}${aqua} 📂 \w${color_off}${show_git}\n└─ > "
   fi
 fi
 

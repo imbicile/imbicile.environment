@@ -80,9 +80,9 @@ show_git="${fg}${white}${bg}${purple}\$(parse_git_branch)${bg}${orange}\$(parse_
 
 # Задаем приглашение для пользователя и опеределение рута
 if [ "$(id -un)" = root ]; then
-  PS1="┌ ${fg}${white}${bg}${maroon} 🔓 \u ${bg}${olive} 💻 \H ${bg}${teal} 📂 \w ${color_off}${show_git}\n└─ ➤  "
+  PS1="┌ ${fg}${white}${bg}${maroon} 🔓 \u ${bg}${olive} 💻 \h ${bg}${teal} 📂 \w ${color_off}${show_git}\n└─ ➤  "
 else
-  PS1="┌ ${fg}${white}${bg}${green} 🏠 \u ${bg}${olive} 💻 \H ${bg}${teal} 📂 \w ${color_off}${show_git}\n└─ ➤  "
+  PS1="┌ ${fg}${white}${bg}${green} 🏠 \u ${bg}${olive} 💻 \h ${bg}${teal} 📂 \w ${color_off}${show_git}\n└─ ➤  "
 fi
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
