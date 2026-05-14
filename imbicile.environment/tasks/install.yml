@@ -36,6 +36,8 @@
       - fonts-powerline
       - fonts-terminus
       - fonts-symbola
+      - fonts-opensymbol
+      - fonts-noto-color-emoji
       - fonts-jetbrains-mono
       - fonts-font-awesome
     update_cache: true
